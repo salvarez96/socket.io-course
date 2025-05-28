@@ -4,6 +4,7 @@
   "description": "Proyecto del curso de Socket.io de Platzi",
   "main": "src/index.js",
   "scripts": {
+    "dev": "nodemon src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Santiago Alvarez",
@@ -17,6 +18,7 @@
     "@types/node": "^22.15.24",
     "@types/socket.io": "^3.0.1",
     "bufferutil": "^4.0.9",
+    "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3",
     "utf-8-validate": "^6.0.5"
