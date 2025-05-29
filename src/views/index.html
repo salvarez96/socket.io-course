@@ -3,22 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/styles.css">
   <title>Socket.io</title>
 </head>
 <body>
-  <h1>Socket.io example app</h1>
-  <h3>Status: <span id="statusSpan">Unknown</span></h3>
+  <div>
+    <h1>Socket.io example app</h1>
+    <h3>Status: <span id="statusSpan">Unknown</span></h3>
+  </div>
 
-  <label for="message">Write a message</label>
-  <input type="text" name="message" id="messageInput" />
-  <button type="button" id="sendMessageButton">Send message</button>
+  <div>
+    <label for="message">Write a message</label>
+    <input type="text" name="message" id="messageInput" />
+    <button type="button" id="sendMessageButton">Send message</button>
+  </div>
 
   <div>
     <button type="button" id="connectButton">Connect</button>
     <button type="button" id="disconnectButton">Disconnect</button>
   </div>
 
+  <div class="circle-container">
+    <div id="circle"></div>
+  </div>
+
   <script src="/socket.io/socket.io.js"></script>
   <script src="/index.js"></script>
+  <script src="/circleLogic.js"></script>
 </body>
 </html>
