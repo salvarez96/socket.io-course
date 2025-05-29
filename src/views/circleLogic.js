@@ -28,6 +28,7 @@ const dragCircle = e => {
     top: e.clientY,
     left: e.clientX
   }
+  socket.emit('circlePosition', position);
   moveCircle(position);
 }
 
@@ -37,4 +38,8 @@ circle.addEventListener("mousedown", (e) => {
 
 document.addEventListener("mouseup", (e) => {
   document.removeEventListener("mousemove", dragCircle);
+});
+
+socket.on('moveCircle', (position) => {
+  moveCircle(position);
 });

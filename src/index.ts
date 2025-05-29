@@ -31,6 +31,10 @@ io.on('connection', (socket) => {
       message: msg
     });
   })
+
+  socket.on('circlePosition', (position) => {
+    socket.broadcast.emit('moveCircle', position);
+  })
 });
 
 httpServer.listen(3000, () => {
