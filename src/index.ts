@@ -14,13 +14,23 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-  console.log('a user connected with id:', socket.id);
-  socket.conn.once('upgrade', () => {
-    console.log('socket upgraded to', socket.conn.transport.name);
-  })
+  console.log(`User ${socket.id} connected!`);
+  io.emit('userConnected', `User ${socket.id} connected!`);
+
   socket.on('disconnect', () => {
-    console.log('user disconnected');
+    console.log(`User ${socket.id} disconnected!`);
+    io.emit('userDisconnected', `User ${socket.id} disconnected!`);
   });
+
+  socket.emit('firstConnection', 'Hello world!');
+
+  socket.on('pongMessage', (msg) => {
+    console.log(`Client ${socket.id} message: '${msg}'`);
+    io.emit('everyone', {
+      id: socket.id,
+      message: msg
+    });
+  })
 });
 
 httpServer.listen(3000, () => {

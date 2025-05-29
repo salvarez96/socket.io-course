@@ -7,6 +7,16 @@
 </head>
 <body>
   <h1>Socket.io example app</h1>
+  <h3>Status: <span id="statusSpan">Unknown</span></h3>
+
+  <label for="message">Write a message</label>
+  <input type="text" name="message" id="messageInput" />
+  <button type="button" id="sendMessageButton">Send message</button>
+
+  <div>
+    <button type="button" id="connectButton">Connect</button>
+    <button type="button" id="disconnectButton">Disconnect</button>
+  </div>
 
   <script src="/socket.io/socket.io.js"></script>
   <script src="/index.js"></script>
