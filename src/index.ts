@@ -14,8 +14,10 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-  console.log('a user connected');
-  console.log(socket.id);
+  console.log('a user connected with id:', socket.id);
+  socket.conn.once('upgrade', () => {
+    console.log('socket upgraded to', socket.conn.transport.name);
+  })
   socket.on('disconnect', () => {
     console.log('user disconnected');
   });
