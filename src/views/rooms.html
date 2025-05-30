@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rooms with socket.io!</title>
+  <style>
+    li {
+      list-style: none;
+    }
+    .room {
+      padding: 8px;
+      display: block;
+      border: 2px solid #000;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Rooms</h1>
+
+  <ul class="room" id="room1"></ul>
+  <ul class="room" id="room2"></ul>
+  <ul class="room" id="room3"></ul>
+
+  <button type="button" id="joinRoom1">Join room 1</button>
+  <button type="button" id="joinRoom2">Join room 2</button>
+  <button type="button" id="joinRoom3">Join room 3</button>
+
+  <button type="button" id="sendMessageButton">Send message</button>
+
+  <ul id="roomConnectionStatus"></>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/rooms.js"></script>
+</body>
+</html>

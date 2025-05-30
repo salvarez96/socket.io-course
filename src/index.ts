@@ -1,7 +1,8 @@
 import express from 'express';
-import { createServer } from 'http';
+import { createServer, get } from 'http';
 import path from 'path';
 import { Server } from 'socket.io';
+import { serverRooms } from './serverRooms';
 
 const app = express();
 const httpServer = createServer(app);
@@ -11,6 +12,10 @@ app.use(express.static(path.join(__dirname, 'views')));
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/views/index.html');
+});
+
+app.get('/rooms', (req, res) => {
+  res.sendFile(__dirname + '/views/rooms.html');
 });
 
 io.on('connection', (socket) => {
@@ -35,6 +40,8 @@ io.on('connection', (socket) => {
   socket.on('circlePosition', (position) => {
     socket.broadcast.emit('moveCircle', position);
   })
+
+  serverRooms(socket, io);
 });
 
 httpServer.listen(3000, () => {
