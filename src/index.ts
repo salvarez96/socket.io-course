@@ -3,6 +3,7 @@ import { createServer, get } from 'http';
 import path from 'path';
 import { Server } from 'socket.io';
 import { serverRooms } from './serverRooms';
+import { ServerNamespaces } from './serverNamespaces';
 
 const app = express();
 const httpServer = createServer(app);
@@ -16,6 +17,10 @@ app.get('/', (req, res) => {
 
 app.get('/rooms', (req, res) => {
   res.sendFile(__dirname + '/views/rooms.html');
+});
+
+app.get('/namespaces', (req, res) => {
+  res.sendFile(__dirname + '/views/namespaces.html');
 });
 
 io.on('connection', (socket) => {
@@ -43,6 +48,10 @@ io.on('connection', (socket) => {
 
   serverRooms(socket, io);
 });
+
+const serverNamespaces = new ServerNamespaces(io);
+serverNamespaces.connectTeachersNamespace();
+serverNamespaces.connectStudentsNamespace();
 
 httpServer.listen(3000, () => {
   console.log('listening on *:3000');
