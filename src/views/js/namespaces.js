@@ -25,3 +25,14 @@ socketNamespace.on('connect', () => {
 
   socketNamespace.emit('userConnected', user);
 });
+
+sendMessageButton.addEventListener('click', () => {
+  const message = prompt('Write a message:');
+  socketNamespace.emit('pingMessage', { message, user });
+});
+
+socketNamespace.on('pongMessage', ({ user, message }) => {
+  const li = document.createElement('li');
+  li.textContent = `${user}: ${message}`;
+  chat.appendChild(li);
+});
