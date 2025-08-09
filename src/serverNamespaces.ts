@@ -1,14 +1,22 @@
 import { Namespace, Server, Socket } from "socket.io";
+import { ServerIo } from "./interfaces";
+import { MessageHandler } from "./messageHandler";
 
-export class ServerNamespaces {
+enum USER_TYPE {
+  'TEACHER' = 'teacher',
+  'STUDENT' = 'student'
+}
+
+export class ServerNamespaces extends MessageHandler implements ServerIo {
   io: Server
 
   constructor(io: Server) {
+    super()
     this.io = io
   }
 
   connectTeachersNamespace() {
-    const userType = 'Teacher'
+    const userType = USER_TYPE.TEACHER
     const teachersNamespace = this.io.of('/teachers')
 
     teachersNamespace.on('connect', (socket) => {
@@ -18,24 +26,12 @@ export class ServerNamespaces {
   }
 
   connectStudentsNamespace() {
-    const userType = 'Student'
+    const userType = USER_TYPE.STUDENT
     const studentsNamespace = this.io.of('/students')
 
     studentsNamespace.on('connect', (socket) => {
       this.userConnected(socket, userType)
       this.handleMessage(socket, studentsNamespace)
-    });
-  }
-
-  private userConnected(socket: Socket, userType: string) {
-    socket.on('userConnected', (user) => {
-      console.log(`${userType} ${user} connected with ID: ${socket.id}`);
-    });
-  }
-
-  private handleMessage(socket: Socket, namespace: Namespace) {
-    socket.on('pingMessage', (msg) => {
-      namespace.emit('pongMessage', msg);
     });
   }
 }
