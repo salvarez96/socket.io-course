@@ -23,6 +23,14 @@ app.get('/namespaces', (req, res) => {
   res.sendFile(__dirname + '/views/namespaces.html');
 });
 
+io.use((socket, next) => {
+  const { token } = socket.handshake.auth;
+  if (token === 'my-auth-token')
+    next();
+  else
+    next(new Error('Authentication error'));
+})
+
 io.on('connection', (socket) => {
   console.log(`User ${socket.id} connected!`);
   io.emit('userConnected', `User ${socket.id} connected!`);

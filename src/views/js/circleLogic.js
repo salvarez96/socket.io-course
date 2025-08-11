@@ -28,7 +28,9 @@ const dragCircle = e => {
     top: e.clientY,
     left: e.clientX
   }
-  socket.emit('circlePosition', position);
+
+  // disconnection management with volatile event
+  socket.volatile.emit('circlePosition', position);
   moveCircle(position);
 }
 
