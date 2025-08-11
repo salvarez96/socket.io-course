@@ -30,8 +30,11 @@ const dragCircle = e => {
   }
 
   // disconnection management with volatile event
-  socket.volatile.emit('circlePosition', position);
   moveCircle(position);
+
+  if (socket.connected) {
+    socket.volatile.emit('circlePosition', position);
+  }
 }
 
 circle.addEventListener("mousedown", (e) => {

@@ -1,3 +1,5 @@
+process.env.DEBUG = 'socket.io-parser, socket.io:client, socket.io:namespace, socket.io:socket';
+
 import express from 'express';
 import { createServer, get } from 'http';
 import path from 'path';
