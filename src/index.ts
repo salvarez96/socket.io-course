@@ -1,15 +1,32 @@
-process.env.DEBUG = 'socket.io-parser, socket.io:client, socket.io:namespace, socket.io:socket';
+// process.env.DEBUG = 'socket.io-parser, socket.io:client, socket.io:namespace, socket.io:socket';
 
+import dotenv from 'dotenv';
 import express from 'express';
 import { createServer, get } from 'http';
 import path from 'path';
 import { Server } from 'socket.io';
 import { serverRooms } from './serverRooms';
 import { ServerNamespaces } from './serverNamespaces';
+import { instrument } from '@socket.io/admin-ui';
+
+dotenv.config();
 
 const app = express();
 const httpServer = createServer(app);
-const io = new Server(httpServer);
+const io = new Server(httpServer, {
+  cors: {
+    origin: ['https://admin.socket.io'],
+    credentials: true
+  }
+});
+
+instrument(io, {
+  auth: {
+    type: 'basic',
+    username: process.env.ADMIN_USERNAME as string,
+    password: process.env.ADMIN_PASSWORD as string
+  }
+})
 
 app.use(express.static(path.join(__dirname, 'views')));
 
